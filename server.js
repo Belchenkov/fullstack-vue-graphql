@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 
 require('dotenv').config({ path: '.env' });
 
+const User = require('./models/User');
+const Post = require('./models/Post');
+
 const typeDefs = gql`
     type Todo {
         task: String
@@ -15,7 +18,11 @@ const typeDefs = gql`
 `;
 
 const server = new ApolloServer({
-    typeDefs
+    typeDefs,
+    context: {
+        User,
+        Post
+    }
 });
 
 mongoose
